@@ -1,11 +1,17 @@
 
 const SHOT_FIRED = 'SHOT_FIRED';
 const TOGGLE_PLAYER = 'TOGGLE_PLAYER';
+const SELECT_TO_PLAY_PLAYER = 'SELECT_TO_PLAY_PLAYER';
 
 const initialState = {
   board1: null,
   board2: null,
   activePlayer: 1,
+  isPlayerVsPlayer: false,
+  isPlayer1BoardSet: false,
+  isPlayer2BoardSet: false,
+  player1Ships: null,
+  player2Ships: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -22,6 +28,11 @@ export default function reducer(state = initialState, action = {}) {
       return {
         activePlayer: action.activePlayerId
       };
+    case SELECT_TO_PLAY_PLAYER:
+      console.log('reduce SELECT_TO_PLAY_PLAYER');
+      return {
+        isPlayerVsPlayer: action.isPlayerVsPlayer
+      };
     default:
       return state;
   }
@@ -37,6 +48,14 @@ export function togglePlayer(activePlayerId) {
   return {
     type: TOGGLE_PLAYER,
     activePlayerId: activePlayerId
+  };
+}
+
+export function selectToPlayPlayer(isPlayerVsPlayer) {
+  console.log('action togglePlayer');
+  return {
+    type: SELECT_TO_PLAY_PLAYER,
+    isPlayerVsPlayer: isPlayerVsPlayer
   };
 }
 

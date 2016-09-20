@@ -1,11 +1,44 @@
-footer.footer {
-  opacity:0.8;
-  font-size:85%;
+.btn {
+    font-family: inherit;
+    font-size: 100%;
+    padding: .5em 1em;
+    color: #444;
+    color: rgba(0,0,0,.8);
+    border: 1px solid #999;
+    border: 0 rgba(0,0,0,0);
+    background-color: #E6E6E6;
+    text-decoration: none;
+    border-radius: 2px;
+    display: inline-block;
+    zoom: 1;
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-.footer {
-  text-align: center;
-  padding: 15px 0;
-  margin-top: 30px;
-  border-top: 1px solid #E5E5E5;
+.BattleshipHome {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 50px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+	&__buttons {
+		width: 500px;
+		display: flex;
+		justify-content: space-between;
+		font-size: 20px;
+	}
 }

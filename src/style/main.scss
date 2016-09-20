@@ -75,3 +75,8 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
   left: 50%;
   margin-left: -35px;
 }
+
+.container {
+	display: flex;
+	justify-content: center;
+}

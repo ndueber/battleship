@@ -3,9 +3,9 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { togglePlayer, shotFired } from '../../redux/modules/battleData.js';// import action creators
+import { togglePlayer, shotFired, selectToPlayPlayer } from '../../redux/modules/battleData.js';// import action creators
 
-const baseClass = 'BattleSquare';
+const baseClass = 'BattleshipHome';
 const { func } = React.PropTypes;
 
 
@@ -13,32 +13,45 @@ class BattleshipHome extends React.Component {
 
   static propTypes = {
     shotFired: func.isRequired,
-    togglePlayer: func.isRequired
+    togglePlayer: func.isRequired,
+    selectToPlayPlayer: func.isRequired,
   }
 
 
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleVsPlayerClick = this.handleVsPlayerClick.bind(this);
+    this.handleVsCompClick = this.handleVsCompClick.bind(this);
   }
 
-  handleClick() {
-    console.log('handleClick');
+  // select to play vs second player
+  handleVsPlayerClick() {
+    console.log('handle Player vs player Click');
     // const { togglePlayer } = this.props;
-    this.props.togglePlayer(2);
+    this.props.selectToPlayPlayer(true);
   }
 
-  asdf() {
-    shotFired('fuck');
+  // select to play computer
+  handleVsCompClick() {
+    console.log('handle Player vs Comp Click');
+    // const { togglePlayer } = this.props;
+    // this.props.togglePlayer(2);
+    this.props.selectToPlayPlayer(false);
   }
 
   render() {
     return (
       <div className={`${baseClass}`}>
-        <div className={'button'}>
-          <div onClick={this.handleClick}>
-            what
-          </div>
+        <div className={`${baseClass}`}>
+          Battleship
+        </div>
+        <div className={`${baseClass}__buttons`}>
+          <a className={`btn`} onClick={this.handleVsPlayerClick} href={'/#/battleship'}>
+            Player VS. Player
+          </a>
+          <a className={`btn`} onClick={this.handleVsCompClick} href={'/#/battleship'}>
+            Player VS. Computer
+          </a>
         </div>
       </div>
     );
@@ -47,6 +60,6 @@ class BattleshipHome extends React.Component {
 
 
 export default connect(
-  (state) => ({ activePlayer: state.activePlayer }),
-  (dispatch) => bindActionCreators({ togglePlayer, shotFired }, dispatch)
+  (state) => ({ activePlayer: state.activePlayer, isPlayerVsPlayer: state.isPlayerVsPlayer }),
+  (dispatch) => bindActionCreators({ togglePlayer, shotFired, selectToPlayPlayer }, dispatch)
 )(BattleshipHome);
