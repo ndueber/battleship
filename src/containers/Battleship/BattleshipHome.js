@@ -46,10 +46,10 @@ class BattleshipHome extends React.Component {
           Battleship
         </div>
         <div className={`${baseClass}__buttons`}>
-          <a className={`btn`} onClick={this.handleVsPlayerClick} href={'/#/battleship'}>
+          <a className={`btn`} onClick={this.handleVsPlayerClick} href={'/#/battleship_setup'}>
             Player VS. Player
           </a>
-          <a className={`btn`} onClick={this.handleVsCompClick} href={'/#/battleship'}>
+          <a className={`btn`} onClick={this.handleVsCompClick} href={'/#/battleship_setup'}>
             Player VS. Computer
           </a>
         </div>

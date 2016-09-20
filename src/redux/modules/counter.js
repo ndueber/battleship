@@ -8,7 +8,6 @@ const INCREMENT = 'counter/INCREMENT';
 /* *********** Reducer ************/
 
 export default function reducer(state = 0, action = {}) {
-  console.log('fuck');
   switch (action.type) {
     case INCREMENT:
       return state + 1;

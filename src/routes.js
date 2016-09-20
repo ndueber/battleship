@@ -4,6 +4,7 @@ import {
   App,
   Battleship,
   BattleshipHome,
+  BattleshipSetup,
   Home,
   Github,
   GithubUser,
@@ -27,6 +28,7 @@ export default (
     <IndexRoute component={Home}/>
     <Route path="battleship" component={Battleship}/>
     <Route path="battleship_home" component={BattleshipHome}/>
+    <Route path="battleship_setup" component={BattleshipSetup}/>
     <Route path="github" component={Github}/>
     <Route path="github/user/:username" component={GithubUser}/>
     <Route path="redux" component={Redux}/>

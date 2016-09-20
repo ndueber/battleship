@@ -1,15 +1,18 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 // import BattleBoard from '../../components/BattleBoard/BattleBoard.js';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { togglePlayer, shotFired } from '../../redux/modules/battleData.js';// import action creators
 
+const { func } = React.PropTypes;
+const baseClass = 'Battleship';
+
 class Battleship extends React.Component {
 
   static propTypes = {
-    shotFired: PropTypes.func.isRequired,
-    togglePlayer: PropTypes.func.isRequired
+    shotFired: func.isRequired,
+    togglePlayer: func.isRequired
   }
 
 
@@ -24,13 +27,26 @@ class Battleship extends React.Component {
     this.props.togglePlayer(2);
   }
 
-  asdf() {
-    shotFired('fuck');
+  renderSetUpBoard() {
+    return (
+      <div className={`${baseClass}__player`}>
+        Player `${this.state.activePlayer}`
+      </div>
+    );
   }
 
+  renderPlayer() {
+    return (
+      <div className={`${baseClass}__player`}>
+        `Player ${this.state.activePlayer}`
+      </div>
+    );
+  }
   render() {
     return (
       <div>
+        {this.renderPlayer()}
+        {this.renderSetUpBoard()}
         <div>
           hello Battleship
           <div onClick={this.handleClick}>
@@ -44,6 +60,10 @@ class Battleship extends React.Component {
 
 
 export default connect(
-  (state) => ({ activePlayer: state.activePlayer }),
+  (state) => ({ activePlayer: state.activePlayer,
+    isPlayerVsPlayer: state.isPlayerVsPlayer,
+    isPlayer1BoardSet: state.isPlayer1BoardSet,
+    isPlayer2BoardSet: state.isPlayer2BoardSet
+  }),
   (dispatch) => bindActionCreators({ togglePlayer, shotFired }, dispatch)
 )(Battleship);
