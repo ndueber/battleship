@@ -42,7 +42,7 @@ class BattleshipHome extends React.Component {
   render() {
     return (
       <div className={`${baseClass}`}>
-        <div className={`${baseClass}`}>
+        <div className={`${baseClass}__title`}>
           Battleship
         </div>
         <div className={`${baseClass}__buttons`}>

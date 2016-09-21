@@ -1,6 +1,6 @@
 import React from 'react';
 // import BattleBoard from '../../components/BattleBoard/BattleBoard.js';
-
+// import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { togglePlayer, shotFired, randomizeBoard } from '../../redux/modules/battleData.js';// import action creators
@@ -34,22 +34,21 @@ class BattleshipSetup extends React.Component {
     randomizeBoard: func.isRequired
   }
 
-
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    console.log('handleClick');
-    // const { togglePlayer } = this.props;
-    this.props.togglePlayer(2);
   }
 
   handleRandomize() {
     console.log('handle randomize');
     console.log(this.props.activePlayer);
     this.props.randomizeBoard(this.props.activePlayer);
+    // randomize computer's board
+    if (!this.props.isPlayerVsPlayer) {
+      this.props.randomizeBoard(2);
+    }
+    // if (!this.props.isPlayerVsPlayer || this.props.activePlayer === 2) {
+    //   this.props.push('/#/battleship');
+    // }
   }
 
   renderPlayer() {
@@ -62,6 +61,13 @@ class BattleshipSetup extends React.Component {
   }
 
   renderSetUpBoardDirective() {
+    if (this.props.isPlayer1BoardSet && this.props.isPlayer2BoardSet) {
+      return (
+        <div className={`${baseClass}__directive`}>
+          Begin Game When Ready!
+        </div>
+      );
+    }
     return (
       <div className={`${baseClass}__directive`}>
         Player {this.props.activePlayer} Set Up Your Board
@@ -70,12 +76,16 @@ class BattleshipSetup extends React.Component {
   }
 
   renderRandomizeBoardButton() {
+    // hack for redirect problem
+    if (this.props.isPlayer1BoardSet && this.props.isPlayer2BoardSet) {
+      return null;
+    }
     // stay on this page but randomize board
     if (this.props.activePlayer === 1 && this.props.isPlayerVsPlayer === true) {
       return (
-        <a className={`btn`} onClick={this.handleRandomize.bind(this)}>
+        <div className={`btn`} onClick={this.handleRandomize.bind(this)}>
           randomize
-        </a>
+        </div>
       );
     }
     return (
@@ -89,11 +99,10 @@ class BattleshipSetup extends React.Component {
     console.log('dueber');
     console.log(this.props.activePlayer);
     return (
-      <div>
+      <div className={`${baseClass}`}>
         {this.renderSetUpBoardDirective()}
         <div className={`${baseClass}__buttons`}>
           {this.renderRandomizeBoardButton()}
-
         </div>
       </div>
     );

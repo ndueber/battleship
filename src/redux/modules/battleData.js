@@ -3,6 +3,7 @@ const SHOT_FIRED = 'SHOT_FIRED';
 const TOGGLE_PLAYER = 'TOGGLE_PLAYER';
 const SELECT_TO_PLAY_PLAYER = 'SELECT_TO_PLAY_PLAYER';
 const RANDOMIZE_BOARD = 'RANDOMIZE_BOARD';
+const SELECT_SQUARE = 'SELECT_SQUARE';
 
 const BOARD_SIZE = 10;
 const LEFT = 'left';
@@ -63,6 +64,8 @@ const initialState = {
   isPlayer2BoardSet: false,
   player1Ships: null,
   player2Ships: null,
+  selectedXCoord: null,
+  selectedYCoord: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -70,6 +73,53 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case SHOT_FIRED:
       console.log('reduce shot fired');
+      console.log(state.board2);
+      console.log(state);
+      if (action.playerId === 1) {
+        if (state.board2[action.xCoord][action.yCoord].isShipOn) {
+          console.log('hit!');
+          state.board2[action.xCoord][action.yCoord].isHit = true;
+          const board2 = state.board2;
+          state.player2Ships[state.board2[action.xCoord][action.yCoord].shipId].hitsRemaining --;
+          const player2Ships = state.player2Ships;
+          return {
+            ...state,
+            board2,
+            player2Ships
+          };
+        }
+        else {
+          state.board2[action.xCoord][action.yCoord].isMiss = true;
+          const board2 = state.board2;
+          return {
+            ...state,
+            board2
+          };
+        }
+      }
+
+      if (action.playerId === 2) {
+        if (state.board1[action.xCoord][action.yCoord].isShipOn) {
+          console.log('hit!');
+          state.board1[action.xCoord][action.yCoord].isHit = true;
+          const board1 = state.board1;
+          state.player1Ships[state.board1[action.xCoord][action.yCoord].shipId].hitsRemaining --;
+          const player1Ships = state.player1Ships;
+          return {
+            ...state,
+            board1,
+            player1Ships
+          };
+        }
+        else {
+          state.board1[action.xCoord][action.yCoord].isMiss = true;
+          const board1 = state.board1;
+          return {
+            ...state,
+            board1
+          };
+        }
+      }
       return {
         ...state,
         action
@@ -93,16 +143,22 @@ export default function reducer(state = initialState, action = {}) {
           ...state,
           board1: action.board,
           isPlayer1BoardSet: true,
-          player1Ships: action.shipsOnBoard,
+          player1Ships: action.ships,
           activePlayer: 2
         };
       }
       return {
         ...state,
         board2: action.board,
-        isPlayer1BoardSet: true,
-        player2Ships: action.shipsOnBoard,
+        isPlayer2BoardSet: true,
+        player2Ships: action.ships,
         activePlayer: 1,
+      };
+    case SELECT_SQUARE:
+      return {
+        ...state,
+        selectedXCoord: action.xCoord,
+        selectedYCoord: action.yCoord,
       };
     default:
       return state;
@@ -152,12 +208,13 @@ function checkIfShipFits(board, xCoord, yCoord, boatSize, direction) {
   return true;
 }
 
-function placeShipOnBoard(board, xCoord, yCoord, boatSize, direction) {
+function placeShipOnBoard(board, xCoord, yCoord, boatSize, direction, shipId) {
   for (let positionsOver = 0; positionsOver < boatSize; positionsOver++) {
     let coordArr = moveCoordByDirection(xCoord, yCoord, direction, positionsOver);
     const xCoordOnBoard = coordArr[0];
     const yCoordOnBoard = coordArr[1];
     board[xCoordOnBoard][yCoordOnBoard].isShipOn = true;
+    board[xCoordOnBoard][yCoordOnBoard].shipId = shipId;
     coordArr = '';
   }
   return board;
@@ -228,8 +285,10 @@ export function randomizeBoard(playerId) {
     for (let x = 0; x < BOARD_SIZE; x++) {
       const square = {};
       square.isShipOn = false;
-      square.isShotAt = false;
+      square.isMiss = false;
       square.isHit = false;
+      square.x_coord = x;
+      square.y_coord = y;
       board[y][x] = square;
     }
   }
@@ -249,7 +308,7 @@ export function randomizeBoard(playerId) {
         // console.log('ship trying to be placed in location: ');
         // console.log('x: ' + randXCoord + ' y: '+ randYCoord + ' boatSize: ' + boatSize + ' direction: ' + direction);
         if (checkIfShipFits(board, randXCoord, randYCoord, boatSize, direction)) {
-          board = placeShipOnBoard(board, randXCoord, randYCoord, boatSize, direction);
+          board = placeShipOnBoard(board, randXCoord, randYCoord, boatSize, direction, shipId);
           ship.coordinates = getShipCoords(randXCoord, randYCoord, boatSize, direction);
           shipPlaced = true;
         }
@@ -265,16 +324,27 @@ export function randomizeBoard(playerId) {
   };
 }
 
+export function selectSquare(xCoord, yCoord) {
+  console.log('action selectSquare');
+  return {
+    type: SELECT_SQUARE,
+    xCoord,
+    yCoord
+  };
+}
+
+
 /**
  * This is the only action creator exported (not including changeUsername).
  * It's using a sugar syntax enabled by the clientMiddleware (see explanation in ../middleware/clientMiddleware.js)
  */
-export function shotFired(playerId, coordinates) {
+export function shotFired(playerId, xCoord, yCoord) {
   console.log('action shotFired');
   return {
     type: SHOT_FIRED,
     playerId,
-    coordinates,
+    xCoord,
+    yCoord
   };
 
 }

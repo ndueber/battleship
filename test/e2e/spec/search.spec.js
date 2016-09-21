@@ -6,9 +6,6 @@ describe('Github Search page', () => {
     // don't start test before the page is ready
     waitUntilIsElementPresent(by.id('user-name'));
   });
-  it('should have a correct title', () => {
-    expect(browser.getTitle()).toEqual('Topheman - react-es6-redux');
-  });
   describe('Scenario - "original"', () => {
     it('should have the correct message when form untouched', () => {
       const text = element.all(by.css('form ~ p')).first().getText();

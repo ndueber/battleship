@@ -86,7 +86,7 @@ if (DASHBOARD) {
 }
 
 plugins.push(new HtmlWebpackPlugin({
-  title: 'Topheman - react-es6-redux',
+  title: 'Battleship',
   template: 'src/index.ejs', // Load a custom template
   inject: MODE_DEV_SERVER, // inject scripts in dev-server mode - in build mode, use the template tags
   MODE_DEV_SERVER: MODE_DEV_SERVER,

@@ -65,3 +65,33 @@
 		font-size: 20px;
 	}
 }
+
+.Battleship {
+	&__oppBoard {
+		display:flex;
+		width: 300px;
+		flex-wrap: wrap;
+	}
+}
+
+.BattleSquare {
+	width: 30px;
+	height: 30px;
+	border: 1px solid black;
+}
+
+.isMiss {
+	background: lightblue;
+}
+
+.isSelected {
+	background: lightgreen;
+}
+
+.isHit {
+	background: red;
+}
+
+.isShipOn {
+	background: lightgray;
+}
