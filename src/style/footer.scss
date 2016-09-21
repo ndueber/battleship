@@ -67,8 +67,18 @@
 }
 
 .Battleship {
-	&__oppBoard {
-		display:flex;
+	&__boards {
+		display: flex;
+		width: 700px;
+		justify-content: space-between;
+	}
+	&__board--title {
+		display: flex;
+		width: 300px;
+		justify-content: space-between;
+	}
+	&__board--board {
+		display: flex;
 		width: 300px;
 		flex-wrap: wrap;
 	}

@@ -10,12 +10,6 @@ const { func } = React.PropTypes;
 const baseClass = 'Battleship';
 const BOARD_SIZE = 10;
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     categoryActions: bindActionCreators(categoryActions, dispatch),
-//     favoritesActions: bindActionCreators(favoritesActions, dispatch),
-//   };
-// }
 
 function mapStateToProps(state) {
   const { battleData } = state;
@@ -40,51 +34,35 @@ class Battleship extends React.Component {
     selectSquare: func.isRequired,
   }
 
-
   constructor(props) {
     super(props);
-    console.log('battleship constructor');
     this.state = {isSquareSelected: false};
     this.xCoordToFire = null;
     this.yCoordToFire = null;
-    console.log('end battlship constructor');
   }
 
   handleSquareSelectedClick(xCoord, yCoord) {
-    console.log('handleSquareSelectedClick');
-    console.log('xCoord: ' + xCoord + ' yCoord: ' + yCoord);
     this.props.selectSquare(xCoord, yCoord);
     this.xCoordToFire = xCoord;
     this.yCoordToFire = yCoord;
-      // const { togglePlayer } = this.props;
-    // this.props.togglePlayer(2);
-  }
-
-  handleSquareUnselectedClick(xCoord, yCoord) {
-    console.log('handleSquareUnselectedClick');
-    console.log('xCoord: ' + xCoord + ' yCoord: ' + yCoord);
-    this.xCoordToFire = null;
-    this.yCoordToFire = null;
-      // const { togglePlayer } = this.props;
-    // this.props.togglePlayer(2);
   }
 
   handleShotFired() {
-    console.log('dueber handleShotFired!!!');
     this.props.shotFired(
       this.props.activePlayer,
       this.xCoordToFire,
       this.yCoordToFire);
+
     if (this.props.activePlayer === 1) {
       this.props.togglePlayer(2);
     }
+
     if (this.props.activePlayer === 2) {
       this.props.togglePlayer(1);
     }
   }
 
   renderPlayerTitleDirective() {
-    console.log('dueber renderPlayerTitleDirective!!!');
     return (
       <div className={`${baseClass}__directive`}>
         Player {this.props.activePlayer} Choose A Square To Shoot At
@@ -93,7 +71,6 @@ class Battleship extends React.Component {
   }
 
   renderFireShotButton() {
-    console.log('dueber renderFireShotButton!!!');
 
     // stay on this page but randomize board
     // if (this.props.activePlayer === 1 && this.props.isPlayerVsPlayer === true) {
@@ -111,14 +88,42 @@ class Battleship extends React.Component {
   }
 
   renderOwnBoard() {
-    return null;
+    console.log('dueber renderOpponentsBoard!!!');
+    let ownBoard = this.props.board1;
+    if (this.props.activePlayer === 2) {
+      ownBoard = this.props.board2;
+    }
+
+    let board;
+    board = [];
+    for (let y = 0; y < BOARD_SIZE; y++) {
+      for (let x = 0; x < BOARD_SIZE; x++) {
+        board.push(
+          <BattleSquare
+            xCoord={x}
+            yCoord={y}
+            handleClick={this.handleSquareSelectedClick.bind(this)}
+            isShipOn={ownBoard[x][y].isShipOn}
+            isMiss={ownBoard[x][y].isMiss}
+            isHit={ownBoard[x][y].isHit}
+          />
+        );
+      }
+    }
+    return (
+      <div className={`${baseClass}__board`}>
+        <div className={`${baseClass}__board--title`}>
+          Your own board
+        </div>
+        <div className={`${baseClass}__board--board`}>
+          {board}
+        </div>
+      </div>
+    );
   }
 
   renderOpponentsBoard() {
     console.log('dueber renderOpponentsBoard!!!');
-    // console.log([<BattleSquare xCoord={0} yCoord={0}/>, <BattleSquare xCoord={0} yCoord={1}/>]);
-    // return [<BattleSquare xCoord={0} yCoord={0}/>, <BattleSquare xCoord={0} yCoord={1}/>];
-    // return null;
     let oppBoard = this.props.board2;
     if (this.props.activePlayer === 2) {
       oppBoard = this.props.board1;
@@ -126,7 +131,6 @@ class Battleship extends React.Component {
 
     let board;
     board = [];
-    // board = [];
     for (let y = 0; y < BOARD_SIZE; y++) {
       for (let x = 0; x < BOARD_SIZE; x++) {
         let isSelected = false;
@@ -139,7 +143,6 @@ class Battleship extends React.Component {
             xCoord={x}
             yCoord={y}
             handleClick={this.handleSquareSelectedClick.bind(this)}
-            isShipOn={oppBoard[x][y].isShipOn}
             isMiss={oppBoard[x][y].isMiss}
             isHit={oppBoard[x][y].isHit}
             isSelected={isSelected}
@@ -148,20 +151,25 @@ class Battleship extends React.Component {
       }
     }
     return (
-      <div className={`${baseClass}__oppBoard`}>
-        {board}
+      <div className={`${baseClass}__board`}>
+        <div className={`${baseClass}__board--title`}>
+          opponents board
+        </div>
+        <div className={`${baseClass}__board--board`}>
+          {board}
+        </div>
       </div>
     );
   }
 
   render() {
-    console.log('dueber BATTLESHIP!!!');
     return (
       <div className={`${baseClass}`}>
-        wow
         {this.renderPlayerTitleDirective()}
-        {this.renderOpponentsBoard()}
-        {this.renderOwnBoard()}
+        <div className={`${baseClass}__boards`}>
+          {this.renderOpponentsBoard()}
+          {this.renderOwnBoard()}
+        </div>
         <div className={`${baseClass}__buttons`}>
           {this.renderFireShotButton()}
         </div>

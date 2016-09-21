@@ -8,13 +8,6 @@ import { togglePlayer, shotFired, randomizeBoard } from '../../redux/modules/bat
 const { func } = React.PropTypes;
 const baseClass = 'BattleshipSetup';
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     categoryActions: bindActionCreators(categoryActions, dispatch),
-//     favoritesActions: bindActionCreators(favoritesActions, dispatch),
-//   };
-// }
-
 function mapStateToProps(state) {
   const { battleData } = state;
 
@@ -46,9 +39,7 @@ class BattleshipSetup extends React.Component {
     if (!this.props.isPlayerVsPlayer) {
       this.props.randomizeBoard(2);
     }
-    // if (!this.props.isPlayerVsPlayer || this.props.activePlayer === 2) {
-    //   this.props.push('/#/battleship');
-    // }
+
   }
 
   renderPlayer() {

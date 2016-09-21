@@ -15,11 +15,12 @@ export default class BattleSquare extends React.Component {
     handleClick: func.isRequired,
   }
 
-  // static defaultProps = {
-  //   isHit: false,
-  //   isMiss: false,
-  //   isShipOn: false,
-  // };
+  static defaultProps = {
+    isHit: false,
+    isMiss: false,
+    isShipOn: false,
+    isSelected: false,
+  };
 
   constructor(props) {
     super(props);
@@ -34,14 +35,14 @@ export default class BattleSquare extends React.Component {
     const { isHit, isMiss, isShipOn, isSelected } = this.props;
     let additionalClass = '';
     additionalClass = '';
+    if (isShipOn && !isHit) {
+      additionalClass = additionalClass + ' isShipOn';
+    }
     if (isHit) {
       additionalClass = additionalClass + ' isHit';
     }
     if (isMiss) {
       additionalClass = additionalClass + ' isMiss';
-    }
-    if (isShipOn) {
-      additionalClass = additionalClass + ' isShipOn';
     }
     if (isSelected) {
       additionalClass = additionalClass + ' isSelected';
