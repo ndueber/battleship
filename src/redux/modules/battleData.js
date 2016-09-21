@@ -69,12 +69,8 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action = {}) {
-  console.log('in battledata reducer');
   switch (action.type) {
     case SHOT_FIRED:
-      console.log('reduce shot fired');
-      console.log(state.board2);
-      console.log(state);
       if (action.playerId === 1) {
         if (state.board2[action.xCoord][action.yCoord].isShipOn) {
           console.log('hit!');
@@ -125,19 +121,16 @@ export default function reducer(state = initialState, action = {}) {
         action
       };
     case TOGGLE_PLAYER:
-      console.log('reduce TOGGLE_PLAYER');
       return {
         ...state,
         activePlayer: action.activePlayerId
       };
     case SELECT_TO_PLAY_PLAYER:
-      console.log('reduce SELECT_TO_PLAY_PLAYER');
       return {
         ...state,
         isPlayerVsPlayer: action.isPlayerVsPlayer
       };
     case RANDOMIZE_BOARD:
-      console.log('reduce SELECT_TO_PLAY_PLAYER');
       if (action.playerId === 1) {
         return {
           ...state,
@@ -169,7 +162,6 @@ export default function reducer(state = initialState, action = {}) {
 /* *********** Helper Functions ************/
 
 function moveCoordByDirection(xCoord, yCoord, direction, positionsOver) {
-  // console.log('moveCoordByDirection');
   switch (direction) {
     case LEFT:
       return [xCoord - positionsOver, yCoord];
@@ -194,12 +186,9 @@ function areCoordsOnBoard(xCoord, yCoord) {
 function checkIfShipFits(board, xCoord, yCoord, boatSize, direction) {
   for (let positionsOver = 0; positionsOver < boatSize; positionsOver++) {
     const coordArr = moveCoordByDirection(xCoord, yCoord, direction, positionsOver);
-    // console.log(coordArr);
     const xCoordOnBoard = coordArr[0];
     const yCoordOnBoard = coordArr[1];
     // coordinate off board or ship already there
-    // console.log(areCoordsOnBoard(xCoordOnBoard, yCoordOnBoard));
-    // console.log(board[xCoordOnBoard][yCoordOnBoard].isShipOn);
     if (!areCoordsOnBoard(xCoordOnBoard, yCoordOnBoard) ||
       board[xCoordOnBoard][yCoordOnBoard].isShipOn) {
       return false;
@@ -275,10 +264,8 @@ export function selectToPlayPlayer(isPlayerVsPlayer) {
 }
 
 export function randomizeBoard(playerId) {
-  // console.log('in action randomizeBoard');
   let board = [];
   const shipsOnBoard = JSON.parse(JSON.stringify(ships));
-  // console.log('action randomizeBoard');
   // create empty board
   for (let y = 0; y < BOARD_SIZE; y++) {
     board.push(new Array(BOARD_SIZE));
@@ -292,22 +279,20 @@ export function randomizeBoard(playerId) {
       board[y][x] = square;
     }
   }
-  // console.log(board);
 
   // find spot on board for each ship
   for (let shipId = 0; shipId < 5; shipId++) {
-    // console.log('find spot for ship with id: ' + shipId);
     let shipPlaced = false;
     const ship = shipsOnBoard[shipId];
     const boatSize = ship.size;
+    // continue trying to place ship until we find a spot
     while (!shipPlaced) {
-      // console.log('ship not placed yet: ');
       const randXCoord = Math.floor(Math.random() * 10);
       const randYCoord = Math.floor(Math.random() * 10);
+      // try placing in all directions. try each direction once in random order
       shuffle(DIRECTIONS_TO_PLACE_BOATS).forEach((direction) => {
-        // console.log('ship trying to be placed in location: ');
-        // console.log('x: ' + randXCoord + ' y: '+ randYCoord + ' boatSize: ' + boatSize + ' direction: ' + direction);
-        if (checkIfShipFits(board, randXCoord, randYCoord, boatSize, direction)) {
+        // does ship fit?
+        if (!shipPlaced && checkIfShipFits(board, randXCoord, randYCoord, boatSize, direction)) {
           board = placeShipOnBoard(board, randXCoord, randYCoord, boatSize, direction, shipId);
           ship.coordinates = getShipCoords(randXCoord, randYCoord, boatSize, direction);
           shipPlaced = true;

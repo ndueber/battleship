@@ -2,10 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 
 // reducers specific to app logic - to see an annotated reducer, open src/redux/modules/multipleUsers.js
-import counter from './counter.js';
 import battleData from './battleData.js';
-import multipleUsers from './multipleUsers.js';
-import singleUser from './singleUser.js';
 
 /**
  * Exporting a default root reducer combining all the other ones
@@ -14,7 +11,4 @@ import singleUser from './singleUser.js';
 export default combineReducers({
   routing,
   battleData,
-  counter,
-  multipleUsers,
-  singleUser
 });
