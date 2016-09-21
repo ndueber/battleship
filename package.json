@@ -36,7 +36,7 @@
     "webpack-mock": "NODE_ENV=mock API_ROOT_URL='http://localhost' npm run webpack",
     "generate-dist-readme": "node bin/generate-dist-readme.js",
     "generate-http-fixtures": "node ./bin/nock/call-nock.js",
-    "webdriver-manager-update": "./node_modules/.bin/webdriver-manager update"
+    "webdriver-manager-update": "node ./node_modules/.bin/webdriver-manager update"
   },
   "repository": {
     "type": "git",
