@@ -75,7 +75,7 @@ class Battleship extends React.Component {
     // stay on this page but randomize board
     // if (this.props.activePlayer === 1 && this.props.isPlayerVsPlayer === true) {
     return (
-      <a className={`btn`} onClick={this.handleShotFired.bind(this)}>
+      <a className={`${baseClass}__btn btn`} onClick={this.handleShotFired.bind(this)}>
         Fire Shot
       </a>
     );
@@ -135,7 +135,6 @@ class Battleship extends React.Component {
       for (let x = 0; x < BOARD_SIZE; x++) {
         let isSelected = false;
         if (x === this.props.selectedXCoord && y === this.props.selectedYCoord) {
-          console.log('isselected?!?! fuck ya!');
           isSelected = true;
         }
         board.push(

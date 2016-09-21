@@ -1,0 +1,22 @@
+.BattleshipSetup {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	
+	&__directive {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		font-size: 50px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	&__buttons {
+		width: 500px;
+		display: flex;
+		justify-content: space-around;
+		font-size: 20px;
+	}
+}
