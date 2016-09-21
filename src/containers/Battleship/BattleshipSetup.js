@@ -3,7 +3,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { togglePlayer, shotFired } from '../../redux/modules/battleData.js';// import action creators
+import { togglePlayer, shotFired, randomizeBoard } from '../../redux/modules/battleData.js';// import action creators
 
 const { func } = React.PropTypes;
 const baseClass = 'BattleshipSetup';
@@ -30,7 +30,8 @@ class BattleshipSetup extends React.Component {
 
   static propTypes = {
     shotFired: func.isRequired,
-    togglePlayer: func.isRequired
+    togglePlayer: func.isRequired,
+    randomizeBoard: func.isRequired
   }
 
 
@@ -45,12 +46,10 @@ class BattleshipSetup extends React.Component {
     this.props.togglePlayer(2);
   }
 
-  renderSetUpBoardDirective() {
-    return (
-      <div className={`${baseClass}__directive`}>
-        Player {this.props.activePlayer} Set Up Your Board
-      </div>
-    );
+  handleRandomize() {
+    console.log('handle randomize');
+    console.log(this.props.activePlayer);
+    this.props.randomizeBoard(this.props.activePlayer);
   }
 
   renderPlayer() {
@@ -62,17 +61,25 @@ class BattleshipSetup extends React.Component {
     );
   }
 
+  renderSetUpBoardDirective() {
+    return (
+      <div className={`${baseClass}__directive`}>
+        Player {this.props.activePlayer} Set Up Your Board
+      </div>
+    );
+  }
+
   renderRandomizeBoardButton() {
     // stay on this page but randomize board
     if (this.props.activePlayer === 1 && this.props.isPlayerVsPlayer === true) {
       return (
-        <a className={`btn`} onClick={this.handleRandomize}>
+        <a className={`btn`} onClick={this.handleRandomize.bind(this)}>
           randomize
         </a>
       );
     }
     return (
-      <a className={`btn`} onClick={this.handleRandomize} href={'/#/battleship_setup'}>
+      <a className={`btn`} onClick={this.handleRandomize.bind(this)} href={'/#/battleship'}>
         randomize
       </a>
     );
@@ -95,5 +102,5 @@ class BattleshipSetup extends React.Component {
 
 
 export default connect(mapStateToProps,
-  (dispatch) => bindActionCreators({ togglePlayer, shotFired }, dispatch)
+  (dispatch) => bindActionCreators({ togglePlayer, shotFired, randomizeBoard }, dispatch)
 )(BattleshipSetup);
