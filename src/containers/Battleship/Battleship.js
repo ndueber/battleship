@@ -1,6 +1,4 @@
 import React from 'react';
-// import BattleBoard from '../../components/BattleBoard/BattleBoard.js';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { togglePlayer, shotFired, selectSquare } from '../../redux/modules/battleData.js';// import action creators
@@ -13,7 +11,6 @@ const BOARD_SIZE = 10;
 
 function mapStateToProps(state) {
   const { battleData } = state;
-
   return {
     activePlayer: battleData.activePlayer,
     board1: battleData.board1,
@@ -71,9 +68,7 @@ class Battleship extends React.Component {
   }
 
   renderFireShotButton() {
-
     // stay on this page but randomize board
-    // if (this.props.activePlayer === 1 && this.props.isPlayerVsPlayer === true) {
     return (
       <a className={`${baseClass}__btn btn`} onClick={this.handleShotFired.bind(this)}>
         Fire Shot

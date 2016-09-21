@@ -1,6 +1,4 @@
 import React from 'react';
-// import BattleBoard from '../../components/BattleBoard/BattleBoard.js';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { togglePlayer, shotFired, selectToPlayPlayer } from '../../redux/modules/battleData.js';// import action creators
@@ -26,16 +24,11 @@ class BattleshipHome extends React.Component {
 
   // select to play vs second player
   handleVsPlayerClick() {
-    console.log('handle Player vs player Click');
-    // const { togglePlayer } = this.props;
     this.props.selectToPlayPlayer(true);
   }
 
   // select to play computer
   handleVsCompClick() {
-    console.log('handle Player vs Comp Click');
-    // const { togglePlayer } = this.props;
-    // this.props.togglePlayer(2);
     this.props.selectToPlayPlayer(false);
   }
 
@@ -57,7 +50,6 @@ class BattleshipHome extends React.Component {
     );
   }
 }
-
 
 export default connect(
   (state) => ({ activePlayer: state.activePlayer, isPlayerVsPlayer: state.isPlayerVsPlayer }),

@@ -1,17 +1,17 @@
-
+// actions type constants
 const SHOT_FIRED = 'SHOT_FIRED';
 const TOGGLE_PLAYER = 'TOGGLE_PLAYER';
 const SELECT_TO_PLAY_PLAYER = 'SELECT_TO_PLAY_PLAYER';
 const RANDOMIZE_BOARD = 'RANDOMIZE_BOARD';
 const SELECT_SQUARE = 'SELECT_SQUARE';
 
+// function variable constants
 const BOARD_SIZE = 10;
 const LEFT = 'left';
 const RIGHT = 'right';
 const UP = 'up';
 const DOWN = 'down';
 const DIRECTIONS_TO_PLACE_BOATS = [LEFT, RIGHT, UP, DOWN];
-
 const ships = {
   0: {
     id: 0,
@@ -310,7 +310,6 @@ export function selectSquare(xCoord, yCoord) {
   };
 }
 
-
 /**
  * This is the only action creator exported (not including changeUsername).
  * It's using a sugar syntax enabled by the clientMiddleware (see explanation in ../middleware/clientMiddleware.js)
@@ -322,5 +321,4 @@ export function shotFired(playerId, xCoord, yCoord) {
     xCoord,
     yCoord
   };
-
 }

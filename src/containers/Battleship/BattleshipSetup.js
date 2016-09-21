@@ -1,6 +1,4 @@
 import React from 'react';
-// import BattleBoard from '../../components/BattleBoard/BattleBoard.js';
-// import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { togglePlayer, shotFired, randomizeBoard } from '../../redux/modules/battleData.js';// import action creators
@@ -31,8 +29,6 @@ class BattleshipSetup extends React.Component {
   }
 
   handleRandomize() {
-    console.log('handle randomize');
-    console.log(this.props.activePlayer);
     this.props.randomizeBoard(this.props.activePlayer);
     // randomize computer's board
     if (!this.props.isPlayerVsPlayer) {
@@ -42,7 +38,6 @@ class BattleshipSetup extends React.Component {
   }
 
   renderPlayer() {
-    console.log('this.props.activePlayer' + this.props.activePlayer);
     return (
       <div className={`${baseClass}__player`}>
         Player {this.props.activePlayer}
@@ -56,7 +51,7 @@ class BattleshipSetup extends React.Component {
         <div className={`${baseClass}__directive`}>
           Begin Game When Ready!
           <a className={`btn`} href={'/#/battleship'}>
-            Let's Play!
+            Let Us Play!
           </a>
         </div>
       );
@@ -89,8 +84,6 @@ class BattleshipSetup extends React.Component {
   }
 
   render() {
-    console.log('dueber');
-    console.log(this.props.activePlayer);
     return (
       <div className={`${baseClass}`}>
         {this.renderSetUpBoardDirective()}
@@ -101,7 +94,6 @@ class BattleshipSetup extends React.Component {
     );
   }
 }
-
 
 export default connect(mapStateToProps,
   (dispatch) => bindActionCreators({ togglePlayer, shotFired, randomizeBoard }, dispatch)
