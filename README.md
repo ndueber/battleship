@@ -24,6 +24,14 @@ Currently the only option for ship placement is random. In the future you will h
 
 Currently there is no validation for shots fired. It should check to make sure that the player hasn't shot at the new position. 
 
+####Run
+
+#####Dev mode
+
+* `npm start`
+* Open [http://localhost:8080/](http://localhost:8080/)
+* board setup [http://localhost:8080/#/battleship_setup](http://localhost:8080/#/battleship_setup)
+* Play after board set up [http://localhost:8080/#/battleship](http://localhost:8080/#/battleship)
 
 ###License
 
