@@ -15,10 +15,6 @@ Each player also maintains a dictionary which cooresponds to their boats. each w
 
 Randomizing the board, the algorithm takes the ships in largest descending order and tries to place them on the board. It finds a place on the board and then takes a list of directions (in random order) and then tries to place the ship in those directions. 
 
-###trouble shooting
-If you get stuck on /#/battleship_setup page with a display that says "Begin Game When Ready!
-", just change the route to /#/battleship and begin your game!
-
 ###Future Features 
 Right now there is an option on the home page to play the computer, yet, it isn't implemented yet. This will be done by creating an algorithm to examine the playing board and going to a depth of 5 where it will try to eliminate the largest open spaces that could fit as many boats as possible (i.e. it will check to see how far left, right, up, down the spaces are max of the largest boat still floating and min of the smallest boat not sunk.). It will 'fire a shot' on that board at that position and on each depth it will assume the shot was a miss and then look for the next largest opening. When there is a shot on the board that doesn't coorespond to a sunk ship it will shot around that area until it sinks the cooresponding ship.
 

@@ -73,7 +73,6 @@ export default function reducer(state = initialState, action = {}) {
     case SHOT_FIRED:
       if (action.playerId === 1) {
         if (state.board2[action.xCoord][action.yCoord].isShipOn) {
-          console.log('hit!');
           state.board2[action.xCoord][action.yCoord].isHit = true;
           const board2 = state.board2;
           state.player2Ships[state.board2[action.xCoord][action.yCoord].shipId].hitsRemaining --;
@@ -96,7 +95,6 @@ export default function reducer(state = initialState, action = {}) {
 
       if (action.playerId === 2) {
         if (state.board1[action.xCoord][action.yCoord].isShipOn) {
-          console.log('hit!');
           state.board1[action.xCoord][action.yCoord].isHit = true;
           const board1 = state.board1;
           state.player1Ships[state.board1[action.xCoord][action.yCoord].shipId].hitsRemaining --;
@@ -211,14 +209,10 @@ function placeShipOnBoard(board, xCoord, yCoord, boatSize, direction, shipId) {
 
 function getShipCoords(xCoord, yCoord, boatSize, direction) {
   let shipCoords = [];
-  shipCoords = [];
   for (let positionsOver = 0; positionsOver < boatSize; positionsOver++) {
     let coordArr = moveCoordByDirection(xCoord, yCoord, direction, positionsOver);
-    coordArr = moveCoordByDirection(xCoord, yCoord, direction, positionsOver);
     let xCoordOnBoard = coordArr[0];
-    xCoordOnBoard = coordArr[0];
     let yCoordOnBoard = coordArr[1];
-    yCoordOnBoard = coordArr[1];
     shipCoords.push([xCoordOnBoard, yCoordOnBoard]);
   }
   return shipCoords;
@@ -248,7 +242,6 @@ function shuffle(a) {
  * Called on input change
  */
 export function togglePlayer(activePlayerId) {
-  console.log('action togglePlayer');
   return {
     type: TOGGLE_PLAYER,
     activePlayerId: activePlayerId
@@ -256,7 +249,6 @@ export function togglePlayer(activePlayerId) {
 }
 
 export function selectToPlayPlayer(isPlayerVsPlayer) {
-  console.log('action togglePlayer');
   return {
     type: SELECT_TO_PLAY_PLAYER,
     isPlayerVsPlayer: isPlayerVsPlayer
@@ -265,7 +257,7 @@ export function selectToPlayPlayer(isPlayerVsPlayer) {
 
 export function randomizeBoard(playerId) {
   let board = [];
-  const shipsOnBoard = JSON.parse(JSON.stringify(ships));
+  let shipsOnBoard = JSON.parse(JSON.stringify(ships));
   // create empty board
   for (let y = 0; y < BOARD_SIZE; y++) {
     board.push(new Array(BOARD_SIZE));
@@ -309,8 +301,8 @@ export function randomizeBoard(playerId) {
   };
 }
 
+// coordinates have been selected, used when shot is fired.
 export function selectSquare(xCoord, yCoord) {
-  console.log('action selectSquare');
   return {
     type: SELECT_SQUARE,
     xCoord,
@@ -324,7 +316,6 @@ export function selectSquare(xCoord, yCoord) {
  * It's using a sugar syntax enabled by the clientMiddleware (see explanation in ../middleware/clientMiddleware.js)
  */
 export function shotFired(playerId, xCoord, yCoord) {
-  console.log('action shotFired');
   return {
     type: SHOT_FIRED,
     playerId,

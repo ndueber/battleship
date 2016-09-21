@@ -10,7 +10,6 @@ const baseClass = 'BattleshipSetup';
 
 function mapStateToProps(state) {
   const { battleData } = state;
-
   return {
     activePlayer: battleData.activePlayer,
     isPlayerVsPlayer: battleData.isPlayerVsPlayer,
@@ -56,6 +55,9 @@ class BattleshipSetup extends React.Component {
       return (
         <div className={`${baseClass}__directive`}>
           Begin Game When Ready!
+          <a className={`btn`} href={'/#/battleship'}>
+            Let's Play!
+          </a>
         </div>
       );
     }

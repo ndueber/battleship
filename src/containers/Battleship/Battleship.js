@@ -79,23 +79,14 @@ class Battleship extends React.Component {
         Fire Shot
       </a>
     );
-    // }
-    // return (
-    //   <a className={`btn`} onClick={this.handleRandomize.bind(this)} href={'/#/battleship'}>
-    //     randomize
-    //   </a>
-    // );
   }
 
   renderOwnBoard() {
-    console.log('dueber renderOpponentsBoard!!!');
     let ownBoard = this.props.board1;
     if (this.props.activePlayer === 2) {
       ownBoard = this.props.board2;
     }
-
-    let board;
-    board = [];
+    let board = [];
     for (let y = 0; y < BOARD_SIZE; y++) {
       for (let x = 0; x < BOARD_SIZE; x++) {
         board.push(
@@ -123,14 +114,12 @@ class Battleship extends React.Component {
   }
 
   renderOpponentsBoard() {
-    console.log('dueber renderOpponentsBoard!!!');
     let oppBoard = this.props.board2;
     if (this.props.activePlayer === 2) {
       oppBoard = this.props.board1;
     }
 
-    let board;
-    board = [];
+    let board = [];
     for (let y = 0; y < BOARD_SIZE; y++) {
       for (let x = 0; x < BOARD_SIZE; x++) {
         let isSelected = false;
