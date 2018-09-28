@@ -1,6 +1,6 @@
 Battleship
 ===============
-###Implementation 
+### Implementation 
 Boilerplate application for this was taken from [react-es6-redux](https://github.com/topheman/react-es6-redux)
 
 Routing is done in battleship/src/routes.js
@@ -15,7 +15,7 @@ Each player also maintains a dictionary which cooresponds to their boats. each w
 
 Randomizing the board, the algorithm takes the ships in largest descending order and tries to place them on the board. It finds a place on the board and then takes a list of directions (in random order) and then tries to place the ship in those directions. 
 
-###Future Features 
+### Future Features 
 Right now there is an option on the home page to play the computer, yet, it isn't implemented yet. This will be done by creating an algorithm to examine the playing board and going to a depth of 5 where it will try to eliminate the largest open spaces that could fit as many boats as possible (i.e. it will check to see how far left, right, up, down the spaces are max of the largest boat still floating and min of the smallest boat not sunk.). It will 'fire a shot' on that board at that position and on each depth it will assume the shot was a miss and then look for the next largest opening. When there is a shot on the board that doesn't coorespond to a sunk ship it will shot around that area until it sinks the cooresponding ship.
 
 When you play two player it imdeiately toggles between the two players. to make this fair, it should have a screen or popup in between to shield the opponents ship placement to prevent cheating. 
@@ -24,15 +24,15 @@ Currently the only option for ship placement is random. In the future you will h
 
 Currently there is no validation for shots fired. It should check to make sure that the player hasn't shot at the new position. 
 
-####Run
+#### Run
 
-#####Dev mode
+##### Dev mode
 
 * `npm start`
 * Open [http://localhost:8080/](http://localhost:8080/)
 * board setup [http://localhost:8080/#/battleship_setup](http://localhost:8080/#/battleship_setup)
 * Play after board set up [http://localhost:8080/#/battleship](http://localhost:8080/#/battleship)
 
-###License
+### License
 
 This software is distributed under an MIT licence.
